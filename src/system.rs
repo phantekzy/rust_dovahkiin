@@ -1,20 +1,8 @@
-use sysinfo::System;
-
 pub struct SysStats {
     pub cpu_usage: f32,
     pub mem_used: u64,
     pub mem_total: u64,
-}
-
-pub fn get_stats(sys: &mut System) -> SysStats {
-    sys.refresh_all();
-
-    let cpu: f32 =
-        sys.cpus().iter().map(|cpu| cpu.cpu_usage()).sum::<f32>() / sys.cpus().len() as f32;
-
-    SysStats {
-        cpu_usage: cpu,
-        mem_used: sys.used_memory(),
-        mem_total: sys.total_memory(),
-    }
+    pub processes: Vec<(String, u64)>,
+    pub net_in: u64,
+    pub net_out: u64,
 }
