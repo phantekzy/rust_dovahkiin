@@ -1,4 +1,4 @@
-use sysinfo::{CpuExt, System, SystemExt};
+use sysinfo::System;
 
 pub struct SysStats {
     pub cpu_usage: f32,
@@ -9,7 +9,6 @@ pub struct SysStats {
 pub fn get_stats(sys: &mut System) -> SysStats {
     sys.refresh_all();
 
-    // Calculate average CPU usage across all cores
     let cpu: f32 =
         sys.cpus().iter().map(|cpu| cpu.cpu_usage()).sum::<f32>() / sys.cpus().len() as f32;
 
