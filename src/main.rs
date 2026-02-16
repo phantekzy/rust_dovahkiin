@@ -11,7 +11,7 @@ use std::{
     io,
     time::{Duration, Instant},
 };
-use sysinfo::{System, SystemExt};
+use sysinfo::System;
 
 fn main() -> Result<(), io::Error> {
     // Setup terminal
