@@ -1,11 +1,11 @@
 use crate::system::SysStats;
+
 use ratatui::{
     Frame,
     layout::{Constraint, Direction, Layout},
     style::{Color, Style},
-    widgets::{Block, Borders, Gauge},
+    widgets::{Block, Borders, Gauge, List, ListItem},
 };
-
 pub fn render(f: &mut Frame, stats: &SysStats) {
     let main_chunks = Layout::default()
         .direction(Direction::Vertical)
@@ -47,4 +47,20 @@ pub fn render(f: &mut Frame, stats: &SysStats) {
             .percent(mem_p),
         main_chunks[1],
     );
+
+    // PROCESSES LIST
+    let items: Vec<ListItem> = stats
+        .processes
+        .iter()
+        .map(|(name, mem)| ListItem::new(format!("{:<15} | {} MB", name, mem)))
+        .collect();
+
+    let process_list = List::new(items)
+        .Block(
+            Block::default()
+                .title(" Top Processes (Mem) ")
+                .borders(Borders::ALL),
+        )
+        .style(Style::default().fg(Color::White));
+    f.render_widget(process_list, bottom_chunks[0]);
 }
