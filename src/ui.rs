@@ -25,4 +25,12 @@ pub fn render(f: &mut Frame, stats: &SysStats) {
         .gauge_style(ratatui::style::Style::default().fg(ratatui::style::Color::Cyan))
         .percent(stats.cpu_usage as u16);
     f.render_widget(cpu_gauge, chunks[0]);
+
+    // 2. RAM Bar
+    let mem_percent = (stats.mem_used as f64 / stats.mem_total as f64 * 100.0) as u16;
+    let mem_gauge = Gauge::default()
+        .block(Block::default().title(" RAM Usage ").borders(Borders::ALL))
+        .gauge_style(ratatui::style::Style::default().fg(ratatui::style::Color::Magenta))
+        .percent(mem_percent);
+    f.render_widget(mem_gauge, chunks[1])
 }
