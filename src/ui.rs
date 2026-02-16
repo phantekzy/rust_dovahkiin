@@ -32,5 +32,9 @@ pub fn render(f: &mut Frame, stats: &SysStats) {
         .block(Block::default().title(" RAM Usage ").borders(Borders::ALL))
         .gauge_style(ratatui::style::Style::default().fg(ratatui::style::Color::Magenta))
         .percent(mem_percent);
-    f.render_widget(mem_gauge, chunks[1])
+    f.render_widget(mem_gauge, chunks[1]);
+
+    let help_text =
+        Paragraph::new("Press 'q' to quit").block(Block::default().borders(Borders::ALL));
+    f.render_widget(help_text, chunks[2]);
 }
